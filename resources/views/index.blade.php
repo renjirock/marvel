@@ -53,16 +53,32 @@
                 <div class="row justify-content-center">
                     <nav aria-label="">
                         <ul class="pagination pagination-lg">
-                            @for ($i = 1; $i <= 10; $i++)
-                                @if ($i == $page)
-                                    <li class="page-item active" aria-current="page">
-                                        <span class="page-link bg-dark">{{$i}}</span>
-                                    </li>
-                                @endif
-                                @if ($i != $page)
-                                    <li class="page-item active"><a class="page-link" href="{{route('index', 'page='.$i)}}">{{$i}}</a></li>
-                                @endif
-                            @endfor
+                            @if ($page > 1)
+                                <li class="page-item active"><a class="page-link" href="{{route('index', 'page='.($page-1))}}"><</a></li>
+                            @endif
+                            @if ($page < 10)
+                                @for ($i = 1; $i <= 10; $i++)
+                                    @if ($i == $page)
+                                        <li class="page-item active" aria-current="page">
+                                            <span class="page-link bg-dark">{{$i}}</span>
+                                        </li>
+                                    @endif
+                                    @if ($i != $page)
+                                        <li class="page-item active"><a class="page-link" href="{{route('index', 'page='.$i)}}">{{$i}}</a></li>
+                                    @endif
+                                @endfor
+                            @else
+                                @for ($i = $page-10; $i <= $page+1; $i++)
+                                    @if ($i == $page)
+                                        <li class="page-item active" aria-current="page">
+                                            <span class="page-link bg-dark">{{$i}}</span>
+                                        </li>
+                                    @endif
+                                    @if ($i != $page)
+                                        <li class="page-item active"><a class="page-link" href="{{route('index', 'page='.$i)}}">{{$i}}</a></li>
+                                    @endif
+                                @endfor
+                            @endif
                             <li class="page-item active"><a class="page-link" href="{{route('index', 'page='.($page+1))}}">></a></li>
                         </ul>
                     </nav>
